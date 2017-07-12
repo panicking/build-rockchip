@@ -58,32 +58,32 @@ case ${BOARD} in
 		DTB=rk3288-rv1608.dtb
 		CHIP="rk3288"
 		;;
-	"firefly")
+	"rk3288-firefly")
 		DEFCONFIG=rockchip_linux_defconfig
 		UBOOT_DEFCONFIG=firefly-rk3288_defconfig
 		DTB=rk3288-firefly.dtb
 		CHIP="rk3288"
 		;;
-	"fennec")
+	"rk3288-fennec")
 		DEFCONFIG=rockchip_linux_defconfig
 		UBOOT_DEFCONFIG=fennec-rk3288_defconfig
 		DTB=rk3288-fennec.dtb
 		CHIP="rk3288"
 		;;
-	"miniarm")
+	"rk3288-miniarm")
 		DEFCONFIG=rockchip_linux_defconfig
 		UBOOT_DEFCONFIG=tinker-rk3288_defconfig
 		DTB_MAINLINE=rk3288-tinker.dtb
 		DTB=rk3288-miniarm.dtb
 		CHIP="rk3288"
 		;;
-	"phytec")
+	"rk3288-phytec")
 		DEFCONFIG=rockchip_linux_defconfig
 		UBOOT_DEFCONFIG=phycore-rk3288_defconfig
 		DTB=rk3288-phycore-rdk.dtb
 		CHIP="rk3288"
 		;;
-	"kylin")
+	"rk3036-kylin")
 		DEFCONFIG=rockchip_linux_defconfig
 		UBOOT_DEFCONFIG=kylin-rk3036_defconfig
 		DTB=rk3036-kylin.dtb
