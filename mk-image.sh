@@ -90,7 +90,7 @@ generate_system_image() {
 	parted -s ${SYSTEM} unit s mkpart root ${ROOTFS_START} 100%
 
 	# burn u-boot
-	if [ "$CHIP" == "rk3288" ] || [ "$CHIP" == "rk3036" ]; then
+	if [ "$CHIP" == "rk3288" ] || [ "$CHIP" == "rk322x" ] || [ "$CHIP" == "rk3036" ]; then
 		dd if=${OUT}/u-boot/idbloader.img of=${SYSTEM} seek=${LOADER1_START} conv=notrunc
 	elif [ "$CHIP" == "rk3399" ]; then
 		dd if=${OUT}/u-boot/idbloader.img of=${SYSTEM} seek=${LOADER1_START} conv=notrunc

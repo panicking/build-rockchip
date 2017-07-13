@@ -35,13 +35,9 @@ echo -e "\e[36m Using ${UBOOT_DEFCONFIG} \e[0m"
 cd ${LOCALPATH}/u-boot
 make ${UBOOT_DEFCONFIG} all
 
-if [ "${CHIP}" == "rk3288" ]; then
-	tools/mkimage -n rk3288 -T \
+if [ "${CHIP}" == "rk3288" ] || [ "${CHIP}" == "rk322x" ] || [ "${CHIP}" == "rk3036" ]; then
+	tools/mkimage -n ${CHIP} -T \
 		rksd -d spl/u-boot-spl-dtb.bin idbloader.img
-	cat u-boot-dtb.bin >>idbloader.img
-	cp idbloader.img ${OUT}/u-boot/
-elif [ "${CHIP}" == "rk3036" ]; then
-	tools/mkimage -n rk3036 -T rksd -d spl/u-boot-spl.bin idbloader.img
 	cat u-boot-dtb.bin >>idbloader.img
 	cp idbloader.img ${OUT}/u-boot/
 elif [ "${CHIP}" == "rk3328" ]; then
