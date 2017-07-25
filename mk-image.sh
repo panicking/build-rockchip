@@ -87,7 +87,7 @@ generate_system_image() {
 	parted -s ${SYSTEM} unit s mkpart atf ${ATF_START} $(expr ${BOOT_START} - 1)
 	parted -s ${SYSTEM} unit s mkpart boot ${BOOT_START} $(expr ${ROOTFS_START} - 1)
 	parted -s ${SYSTEM} set 6 boot on
-	parted -s ${SYSTEM} unit s mkpart root ${ROOTFS_START} 100%
+	parted -s ${SYSTEM} unit s mkpart rootfs ${ROOTFS_START} 100%
 
 	# burn u-boot
 	if [ "$CHIP" == "rk3288" ] || [ "$CHIP" == "rk322x" ] || [ "$CHIP" == "rk3036" ]; then
