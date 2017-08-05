@@ -10,7 +10,7 @@ build u-boot image:
     
 build rootfs image:
 
-	fllow readme in rk-rootfs-build
+	follow readme in rk-rootfs-build
 
 build one system image:
 
@@ -21,4 +21,7 @@ update image:
 	eMMC: build/flash_tool.sh   -c rk3288 -p system  -i  out/system.img
 	sdcard: build/flash_tool.sh -c rk3288  -d /dev/sdb -p system  -i  out/system.img 
 
-Need to boot into maskrom(If booting into rkusb, it won't work) before flashing to eMMC.
+### Tips
+* You must boot into maskrom to flash the eMMC. Booting into rkusb mode will not work.
+  * An easy way to enter maskrom is by erasing the eMMC and rebooting.
+* Provide the chip name for `-c` parameters, _not_ the board name! (e.g. rk3288 instead of rk3288-evb).
