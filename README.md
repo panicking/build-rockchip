@@ -22,6 +22,6 @@ update image:
 	sdcard: build/flash_tool.sh -c rk3288  -d /dev/sdb -p system  -i  out/system.img 
 
 ### Tips
-* You must boot into maskrom to flash the eMMC. Booting into rkusb mode will not work.
+* You must boot into [maskrom](http://opensource.rock-chips.com/wiki_Rockusb#Maskrom_mode) to flash the eMMC. Booting into [rkusb](http://opensource.rock-chips.com/wiki_Rockusb#Miniloader_Rockusb.C2.A0mode) mode will not work.
   * An easy way to enter maskrom is by erasing the eMMC and rebooting.
 * Provide the chip name for `-c` parameters, _not_ the board name! (e.g. rk3288 instead of rk3288-evb).
