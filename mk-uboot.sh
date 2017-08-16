@@ -72,7 +72,7 @@ EOF
 	cp uboot.img ${OUT}/u-boot/
 	mv trust.img ${OUT}/u-boot/
 elif [ "${CHIP}" == "rk3399" ]; then
-	$TOOLPATH/loaderimage --pack --uboot ./u-boot-dtb.bin uboot.img
+	$TOOLPATH/loaderimage --pack --uboot ./u-boot-dtb.bin uboot.img 0x200000
 
 	tools/mkimage -n rk3399 -T rksd -d ../rkbin/rk33/rk3399_ddr_800MHz_v1.08.bin idbloader.img
 	cat ../rkbin/rk33/rk3399_miniloader_v1.06.bin >> idbloader.img
