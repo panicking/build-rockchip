@@ -87,7 +87,8 @@ flash_upgt() {
 }
 
 flash_sdcard() {
-	sudo dd if=${IMAGE} of=${DEVICE} seek=${SEEK} conv=notrunc
+	pv -tpreb ${IMAGE} | sudo dd of=${DEVICE} seek=${SEEK} conv=notrunc
+	sync
 }
 
 if [ ! $DEVICE ]; then
