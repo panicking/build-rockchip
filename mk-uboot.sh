@@ -36,8 +36,14 @@ cd ${LOCALPATH}/u-boot
 make ${UBOOT_DEFCONFIG} all
 
 if [ "${CHIP}" == "rk3288" ] || [ "${CHIP}" == "rk322x" ] || [ "${CHIP}" == "rk3036" ]; then
+	if [ `grep CONFIG_SPL_OF_CONTROL=y ./.config` ] && \
+			! [ `grep CONFIG_SPL_OF_PLATDATA=y .config` ] ; then
+		SPL_BINARY=u-boot-spl-dtb.bin
+	else
+		SPL_BINARY=u-boot-spl-nodtb.bin
+	fi
 	tools/mkimage -n ${CHIP} -T \
-		rksd -d spl/u-boot-spl-dtb.bin idbloader.img
+		rksd -d spl/${SPL_BINARY} idbloader.img
 	cat u-boot-dtb.bin >>idbloader.img
 	cp idbloader.img ${OUT}/u-boot/
 elif [ "${CHIP}" == "rk3328" ]; then
