@@ -107,6 +107,19 @@ EOF
 
 	cp uboot.img ${OUT}/u-boot/
 	mv trust.img ${OUT}/u-boot/
+elif [ "${CHIP}" == "rk3128" ]; then
+	$TOOLPATH/loaderimage --pack --uboot ./u-boot-dtb.bin uboot.img
+
+	dd if=../rkbin/rk31/rk3128_ddr_300MHz_v2.06.bin of=DDRTEMP bs=4 skip=1
+	tools/mkimage -n rk3128 -T rksd -d DDRTEMP idbloader.img
+	cat ../rkbin/rk31/rk312x_miniloader_v2.40.bin >> idbloader.img
+	cp idbloader.img ${OUT}/u-boot/
+	cp ../rkbin/rk31/rk3128_loader_v2.05.240.bin ${OUT}/u-boot/
+
+	$TOOLPATH/loaderimage --pack --trustos ../rkbin/rk31/rk3126_tee_ta_v1.27.bin trust.img
+
+	cp uboot.img ${OUT}/u-boot/
+	mv trust.img ${OUT}/u-boot/
 fi
 
 echo -e "\e[36m U-boot IMAGE READY! \e[0m"

@@ -77,6 +77,12 @@ case ${BOARD} in
 		DTB=rk3288-phycore-rdk.dtb
 		CHIP="rk3288"
 		;;
+	"rk3128-fireprime")
+		DEFCONFIG=rockchip_linux_defconfig
+		UBOOT_DEFCONFIG=evb-rk3128_defconfig
+		DTB=rk3128-fireprime.dtb
+		CHIP="rk3128"
+		;;
 	"rk3229-evb")
 		DEFCONFIG=rockchip_linux_defconfig
 		UBOOT_DEFCONFIG=evb-rk3229_defconfig
