@@ -93,12 +93,12 @@ generate_system_image() {
 
 	parted -s ${SYSTEM} mklabel gpt
 	parted -s ${SYSTEM} unit s mkpart loader1 ${LOADER1_START} $(expr ${RESERVED1_START} - 1)
-	parted -s ${SYSTEM} unit s mkpart reserved1 ${RESERVED1_START} $(expr ${RESERVED2_START} - 1)
-	parted -s ${SYSTEM} unit s mkpart reserved2 ${RESERVED2_START} $(expr ${LOADER2_START} - 1)
+	# parted -s ${SYSTEM} unit s mkpart reserved1 ${RESERVED1_START} $(expr ${RESERVED2_START} - 1)
+	# parted -s ${SYSTEM} unit s mkpart reserved2 ${RESERVED2_START} $(expr ${LOADER2_START} - 1)
 	parted -s ${SYSTEM} unit s mkpart loader2 ${LOADER2_START} $(expr ${ATF_START} - 1)
-	parted -s ${SYSTEM} unit s mkpart atf ${ATF_START} $(expr ${BOOT_START} - 1)
+	parted -s ${SYSTEM} unit s mkpart trust ${ATF_START} $(expr ${BOOT_START} - 1)
 	parted -s ${SYSTEM} unit s mkpart boot ${BOOT_START} $(expr ${ROOTFS_START} - 1)
-	parted -s ${SYSTEM} set 6 boot on
+	parted -s ${SYSTEM} set 4 boot on
 	parted -s ${SYSTEM} unit s mkpart rootfs ${ROOTFS_START} 100%
 
 	if [ "$CHIP" == "rk3328" ] || [ "$CHIP" == "rk3399" ]; then
@@ -110,7 +110,7 @@ generate_system_image() {
 	gdisk ${SYSTEM} <<EOF
 x
 c
-7
+5
 ${ROOT_UUID}
 w
 y
