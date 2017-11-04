@@ -14,7 +14,7 @@ build rootfs image:
 
 build one system image:  (output : system.img)
 
-	build/mk-image.sh -c rk3288 -t system -s 4000 -r rk-rootfs-build/linaro-rootfs.img
+	build/mk-image.sh -c rk3288 -t system -r rk-rootfs-build/linaro-rootfs.img
 
 update image: 
 

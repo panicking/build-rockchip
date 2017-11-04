@@ -6,7 +6,6 @@ TOOLPATH=${LOCALPATH}/rkbin/tools
 EXTLINUXPATH=${LOCALPATH}/build/extlinux
 CHIP=""
 TARGET=""
-SIZE=""
 ROOTFS_PATH=""
 
 PATH=$PATH:$TOOLPATH
@@ -14,7 +13,7 @@ PATH=$PATH:$TOOLPATH
 source $LOCALPATH/build/partitions.sh
 
 usage() {
-	echo -e "\nUsage: build/mk-image.sh -c rk3288 -t system -s 4000 -r rk-rootfs-build/linaro-rootfs.img \n"
+	echo -e "\nUsage: build/mk-image.sh -c rk3288 -t system -r rk-rootfs-build/linaro-rootfs.img \n"
 	echo -e "       build/mk-image.sh -c rk3288 -t boot\n"
 }
 finish() {
@@ -24,20 +23,13 @@ finish() {
 trap finish ERR
 
 OLD_OPTIND=$OPTIND
-while getopts "c:t:s:r:h" flag; do
+while getopts "c:t:r:h" flag; do
 	case $flag in
 		c)
 			CHIP="$OPTARG"
 			;;
 		t)
 			TARGET="$OPTARG"
-			;;
-		s)
-			SIZE="$OPTARG"
-			if [ $SIZE -le 120 ]; then
-				echo -e "\e[31m SYSTEM IMAGE SIZE TOO SMALL \e[0m"
-				exit -1
-			fi
 			;;
 		r)
 			ROOTFS_PATH="$OPTARG"
@@ -89,7 +81,14 @@ generate_system_image() {
 
 	echo "Generate System image : ${SYSTEM} !"
 
-	dd if=/dev/zero of=${SYSTEM} bs=1M count=0 seek=$SIZE
+	# last dd rootfs will extend gpt image to fit the size,
+	# but this will overrite the backup table of GPT
+	# will cause corruption error for GPT
+	IMG_ROOTFS_SIZE=$(stat -L --format="%s" ${ROOTFS_PATH})
+	GPTIMG_MIN_SIZE=$(expr $IMG_ROOTFS_SIZE + \( ${LOADER1_SIZE} + ${RESERVED1_SIZE} + ${RESERVED2_SIZE} + ${LOADER2_SIZE} + ${ATF_SIZE} + ${BOOT_SIZE} + 35 \) \* 512)
+	GPT_IMAGE_SIZE=$(expr $GPTIMG_MIN_SIZE \/ 1024 \/ 1024 + 1)
+
+	dd if=/dev/zero of=${SYSTEM} bs=1M count=0 seek=$GPT_IMAGE_SIZE
 
 	parted -s ${SYSTEM} mklabel gpt
 	parted -s ${SYSTEM} unit s mkpart loader1 ${LOADER1_START} $(expr ${RESERVED1_START} - 1)
@@ -99,7 +98,7 @@ generate_system_image() {
 	parted -s ${SYSTEM} unit s mkpart trust ${ATF_START} $(expr ${BOOT_START} - 1)
 	parted -s ${SYSTEM} unit s mkpart boot ${BOOT_START} $(expr ${ROOTFS_START} - 1)
 	parted -s ${SYSTEM} set 4 boot on
-	parted -s ${SYSTEM} unit s mkpart rootfs ${ROOTFS_START} 100%
+	parted -s ${SYSTEM} -- unit s mkpart rootfs ${ROOTFS_START} -34s
 
 	if [ "$CHIP" == "rk3328" ] || [ "$CHIP" == "rk3399" ]; then
 		ROOT_UUID="B921B045-1DF0-41C3-AF44-4C6F280D3FAE"
@@ -135,7 +134,7 @@ EOF
 	dd if=${OUT}/boot.img of=${SYSTEM} conv=notrunc seek=${BOOT_START}
 
 	# burn rootfs image
-	dd if=${ROOTFS_PATH} of=${SYSTEM} seek=${ROOTFS_START}
+	dd if=${ROOTFS_PATH} of=${SYSTEM} conv=notrunc,fsync seek=${ROOTFS_START}
 }
 
 if [ "$TARGET" = "boot" ]; then
