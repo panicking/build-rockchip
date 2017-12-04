@@ -1,4 +1,8 @@
-## Usage
+The build and update image usage as follows:
+Which config needed for us, pls refer to build/board_configs.sh or
+http://opensource.rock-chips.com/wiki_Board_Config
+
+##Fox example the rk3288-evb Usage:
 
 build kernel image:  (output : boot.img and out/kernel)
 
