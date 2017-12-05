@@ -51,6 +51,12 @@ case ${BOARD} in
 		DTB=rk3288-evb-act8846.dtb
 		CHIP="rk3288"
 		;;
+	"rk3288-evb-rk808")
+		DEFCONFIG=rockchip_linux_defconfig
+		UBOOT_DEFCONFIG=fennec-rk3288_defconfig
+		DTB=rk3288-evb-rk808-linux.dtb
+		CHIP="rk3288"
+		;;
 	"rk3288-evb-rk1608")
 		DEFCONFIG=rockchip_linux_defconfig
 		UBOOT_DEFCONFIG=evb-rk3288_defconfig
