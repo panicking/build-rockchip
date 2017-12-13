@@ -59,7 +59,7 @@ case ${BOARD} in
 		;;
 	"rk3288-evb-rk1608")
 		DEFCONFIG=rockchip_linux_defconfig
-		UBOOT_DEFCONFIG=evb-rk3288_defconfig
+		UBOOT_DEFCONFIG=evb-rk3288-rk1608_defconfig
 		DTB=rk3288-evb-rk1608.dtb
 		CHIP="rk3288"
 		;;
