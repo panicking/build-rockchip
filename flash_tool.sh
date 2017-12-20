@@ -17,6 +17,7 @@ source $LOCALPATH/build/partitions.sh
 usage() {
 	echo -e "\nUsage: emmc: build/flash_tool.sh -c rk3288  -p system -i out/system.img  \n"
 	echo -e "       sdcard: build/flash_tool.sh -c rk3288  -d /dev/sdb -p system  -i out/system.img \n"
+	echo -e "       rockusb: build/flash_tool.sh -p system  -i out/system.img \n"
 }
 
 finish() {
@@ -60,10 +61,6 @@ done
 if [ ! $IMAGE ]; then
 	usage
 	exit
-fi
-
-if [ ! -f "${EXTLINUXPATH}/${CHIP}.conf" ]; then
-	CHIP="rk3288"
 fi
 
 flash_upgt() {

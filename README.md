@@ -24,6 +24,7 @@ update image:
 
 	eMMC: build/flash_tool.sh   -c rk3288 -p system  -i  out/system.img
 	sdcard: build/flash_tool.sh -c rk3288  -d /dev/sdb -p system  -i  out/system.img 
+	rockusb: build/flash_tool.sh -p system  -i  out/system.img 
 
 ### Debian package
 
