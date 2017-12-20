@@ -49,8 +49,7 @@ if [ "${CHIP}" == "rk3288" ] || [ "${CHIP}" == "rk322x" ] || [ "${CHIP}" == "rk3
 elif [ "${CHIP}" == "rk3328" ]; then
 	$TOOLPATH/loaderimage --pack --uboot ./u-boot-dtb.bin uboot.img 0x200000
 
-	dd if=../rkbin/rk33/rk3328_ddr_786MHz_v1.06.bin of=DDRTEMP bs=4 skip=1
-	tools/mkimage -n rk3328 -T rksd -d DDRTEMP idbloader.img
+	tools/mkimage -n rk3328 -T rksd -d ../rkbin/rk33/rk3328_ddr_786MHz_v1.06.bin idbloader.img
 	cat ../rkbin/rk33/rk3328_miniloader_v2.43.bin >> idbloader.img
 	cp idbloader.img ${OUT}/u-boot/	
 	cp ../rkbin/rk33/rk3328_loader_ddr786_v1.06.243.bin ${OUT}/u-boot/
