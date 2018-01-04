@@ -69,6 +69,12 @@ case ${BOARD} in
 		DTB=rk3288-firefly.dtb
 		CHIP="rk3288"
 		;;
+	"rk3288-firefly-reload")
+		DEFCONFIG=rockchip_linux_defconfig
+		UBOOT_DEFCONFIG=firefly-rk3288_defconfig
+		DTB=rk3288-firefly-reload-linux.dtb
+		CHIP="rk3288"
+		;;
 	"rk3288-fennec")
 		DEFCONFIG=rockchip_linux_defconfig
 		UBOOT_DEFCONFIG=fennec-rk3288_defconfig
