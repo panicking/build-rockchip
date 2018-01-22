@@ -42,6 +42,12 @@ if [ "${CHIP}" == "rk3288" ] || [ "${CHIP}" == "rk322x" ] || [ "${CHIP}" == "rk3
 	else
 		SPL_BINARY=u-boot-spl-nodtb.bin
 	fi
+
+	if [ "${DDR_BIN}" ]; then
+		# Use rockchip close-source ddrbin.
+		dd if=${DDR_BIN} of=spl/${SPL_BINARY} bs=4 skip=1
+	fi
+
 	tools/mkimage -n ${CHIP} -T \
 		rksd -d spl/${SPL_BINARY} idbloader.img
 	cat u-boot-dtb.bin >>idbloader.img
