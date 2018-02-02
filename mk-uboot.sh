@@ -45,7 +45,7 @@ if [ "${CHIP}" == "rk3288" ] || [ "${CHIP}" == "rk322x" ] || [ "${CHIP}" == "rk3
 
 	if [ "${DDR_BIN}" ]; then
 		# Use rockchip close-source ddrbin.
-		dd if=${DDR_BIN} of=spl/${SPL_BINARY} bs=4 skip=1
+		dd if=${DDR_BIN} of=spl/${SPL_BINARY}
 	fi
 
 	tools/mkimage -n ${CHIP} -T \
