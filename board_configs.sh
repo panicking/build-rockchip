@@ -94,6 +94,12 @@ case ${BOARD} in
 		DTB=rk3288-phycore-rdk.dtb
 		CHIP="rk3288"
 		;;
+	"rk3288-vyasa")
+		DEFCONFIG=rockchip_linux_defconfig
+		UBOOT_DEFCONFIG=vyasa-rk3288_defconfig
+		DTB=rk3288-vyasa.dtb
+		CHIP="rk3288"
+		;;
 	"rk3128-fireprime")
 		DEFCONFIG=rockchip_linux_defconfig
 		UBOOT_DEFCONFIG=evb-rk3128_defconfig
